@@ -1,13 +1,14 @@
-3. Incorrect function definition
+4. HTML injection without escaping
 
-functionlogin() {}
+document.body.innerHTML += `<p>Welcome, ${username}!</p>`;
 
+Vulnerability:
 
-//Vulnerability:
+Injecting HTML without escaping can lead to Cross-Site Scripting (XSS) vulnerabilities. If username contains malicious code, it will execute in the browser.
+Remediation:
 
-    The function name is incorrectly written (functionlogin instead of function login), preventing the function from executing correctly.
-    Remediation:
-    
-    Correct the function definition
+Escape any user input before inserting it into the DOM. Use safe methods to manipulate the DOM, such as textContent:
 
-    function login() {}
+const welcomeMessage = document.createElement('p');
+welcomeMessage.textContent = `Welcome, ${username}!`;
+document.body.appendChild(welcomeMessage);
