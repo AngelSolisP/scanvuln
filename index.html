@@ -1,14 +1,16 @@
-1. Use of localStorage to store credentials
+2. Insecure credential validation in the frontend
 
-
-localStorage.setItem('username', username);
-localStorage.setItem('password', password);
+if (username === 'admin' && password === 'admin123') {
+    alert('Login successful!');
+  } else {
+    alert('Invalid credentials!');
+  }
+  
 
 //Vulnerability:
 
-Storing credentials in localStorage is extremely insecure, as anyone with access to the browser can view these 
-credentials through the developer console.
+Credential validation is performed on the frontend, allowing anyone to inspect the code and discover the credentials.
 Remediation:
 
-Never store credentials in localStorage. Use secure authentication and storage mechanisms, 
-such as session tokens that are managed on the server and stored securely in cookies with HttpOnly and Secure flags.
+Perform credential validation on the backend. 
+The frontend should send the credentials to the server, which handles validation and session management.
