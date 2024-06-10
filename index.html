@@ -1,16 +1,13 @@
-2. Insecure credential validation in the frontend
+3. Incorrect function definition
 
-if (username === 'admin' && password === 'admin123') {
-    alert('Login successful!');
-  } else {
-    alert('Invalid credentials!');
-  }
-  
+functionlogin() {}
+
 
 //Vulnerability:
 
-Credential validation is performed on the frontend, allowing anyone to inspect the code and discover the credentials.
-Remediation:
+    The function name is incorrectly written (functionlogin instead of function login), preventing the function from executing correctly.
+    Remediation:
+    
+    Correct the function definition
 
-Perform credential validation on the backend. 
-The frontend should send the credentials to the server, which handles validation and session management.
+    function login() {}
