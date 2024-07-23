@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Vulnerable Login</title>
-  </head>
-  <body>
-    <h1>Login</h1>
-    <form id="loginForm">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username">
-      <br>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password">
-      <br>
-      <br>
-      <button type="button" onclick="login()">Login</button>
-    </form>
-    <script>
-      functionlogin() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        localStorage.setItem('username', username);
-        localStorage.setItem('password', password);
-        if (username === 'admin' && password === 'admin123') {
-          alert('Login successful!');
-        } else {
-          alert('Invalid credentials!');
-        }
-        document.body.innerHTML += `
-										<p>Welcome, ${username}!</p>`;
-      }
-    </script>
-  </body>
-</html>
+4. HTML injection without escaping
+
+document.body.innerHTML += `<p>Welcome, ${username}!</p>`;
+
+Vulnerability:
+
+Injecting HTML without escaping can lead to Cross-Site Scripting (XSS) vulnerabilities. If username contains malicious code, it will execute in the browser.
+Remediation:
+
+Escape any user input before inserting it into the DOM. Use safe methods to manipulate the DOM, such as textContent:
+
+const welcomeMessage = document.createElement('p');
+welcomeMessage.textContent = `Welcome, ${username}!`;
+document.body.appendChild(welcomeMessage);
